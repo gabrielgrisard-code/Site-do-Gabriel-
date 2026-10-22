@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Octagon Elite — Lutadores UFC</title>
+
+<meta name="description" content="Portal de MMA com lutadores, rankings, estatísticas e eventos.">
+
+<style>
+
+:root{
+
+  --bg:#05070b;--panel:#0b1018;--panel2:#101722;--blue:#147cff;--blue2:#00b7ff;
+
+  --gold:#d8aa45;--text:#f5f7fb;--muted:#8d99aa;--line:#1c2736;
+
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth}
+
+body{font-family:Inter,Segoe UI,Arial,sans-serif;background:radial-gradient(circle at 80% 0%,#09203c 0,#05070b 32%);color:var(--text);line-height:1.5}
+
+a{color:inherit;text-decoration:none}
+
+button,input,select{font:inherit}
+
+.container{width:min(1180px,92%);margin:auto}
+
+header{position:sticky;top:0;z-index:20;background:rgba(5,7,11,.84);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.07)}
+
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+
+.logo{font-weight:950;letter-spacing:1px;font-size:21px}.logo span{color:var(--blue2)}.logo b{color:var(--gold)}
+
+nav{display:flex;gap:24px;color:#c9d1dd;font-size:14px;font-weight:700}
+
+nav a:hover{color:#fff}
+
+.nav-btn{background:var(--blue);border:0;color:#fff;padding:10px 15px;border-radius:10px;font-weight:800;cursor:pointer}
+
+.hero{min-height:610px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:30px;position:relative;overflow:hidden}
+
+.hero:after{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:#087dff22;filter:blur(80px);right:-150px;top:20px;pointer-events:none}
+
+.eyebrow{color:var(--gold);font-size:12px;font-weight:900;letter-spacing:2.4px;text-transform:uppercase}
+
+h1{font-size:clamp(45px,7vw,82px);line-height:.92;margin:15px 0 22px;letter-spacing:-3px}
+
+h1 span{color:var(--blue2)}
+
+.hero p{color:var(--muted);max-width:560px;font-size:17px}
+
+.actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+
+.btn{padding:13px 18px;border-radius:11px;border:1px solid var(--line);background:#0c121b;color:#fff;font-weight:800;cursor:pointer}
+
+.btn.primary{background:linear-gradient(135deg,var(--blue),#0754c9);border-color:#2d8cff}
+
+.hero-card{position:relative;background:linear-gradient(145deg,#101a29,#080b11);border:1px solid #24334a;border-radius:25px;min-height:410px;padding:26px;display:flex;flex-direction:column;justify-content:end;overflow:hidden;box-shadow:0 30px 90px #0008}
+
+.hero-card .fighter-silhouette{position:absolute;inset:0;background:
+
+radial-gradient(circle at 50% 35%,#1c88ff55,transparent 23%),
+
+linear-gradient(145deg,transparent 35%,#061120 70%),
+
+repeating-linear-gradient(115deg,#ffffff05 0 2px,transparent 2px 18px)}
+
+.hero-card .fighter-silhouette:after{content:"";position:absolute;width:190px;height:290px;border-radius:45% 45% 18% 18%;background:linear-gradient(#101823,#030508);left:50%;top:80px;transform:translateX(-50%);filter:drop-shadow(0 0 35px #1189ff55)}
+
+.featured{position:relative;z-index:2}.featured small{color:var(--gold);font-weight:900}.featured h2{font-size:35px;margin:5px 0}.featured p{color:#aeb8c6}
+
+section{padding:76px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:28px}.section-head h2{font-size:34px}.section-head p{color:var(--muted);font-size:14px}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.stat{background:var(--panel);border:1px solid var(--line);padding:24px;border-radius:16px}.stat strong{font-size:30px}.stat span{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}.search{flex:1;min-width:220px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:#fff;outline:none}.filter{background:var(--panel);border:1px solid var(--line);border-radius:10px;color:#fff;padding:12px}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.fighter{background:linear-gradient(150deg,#0c131e,#080b10);border:1px solid var(--line);border-radius:17px;overflow:hidden;transition:.2s}.fighter:hover{transform:translateY(-4px);border-color:#2466a8;box-shadow:0 18px 40px #0008}
+
+.photo{height:230px;background:radial-gradient(circle at 50% 30%,#1a75c955,transparent 35%),linear-gradient(145deg,#162335,#070a0e);position:relative;display:grid;place-items:center}
+
+.photo:before{content:"";width:112px;height:150px;border-radius:48% 48% 30% 30%;background:linear-gradient(145deg,#1b2635,#05070a);box-shadow:0 0 50px #1689ff22}
+
+.rank{position:absolute;left:13px;top:13px;background:#05070dcc;border:1px solid #34485e;padding:5px 9px;border-radius:8px;font-size:11px;font-weight:900}.division{position:absolute;right:13px;top:13px;color:var(--gold);font-size:11px;font-weight:900}
+
+.fighter-body{padding:18px}.fighter h3{font-size:21px}.nickname{color:var(--blue2);font-size:12px;font-weight:800}.record{display:flex;gap:16px;color:#b8c2d0;margin:13px 0;font-size:13px}.record b{color:#fff}.tag{display:inline-block;border:1px solid #263448;color:#9eabbc;border-radius:7px;padding:4px 7px;font-size:10px;margin-right:4px}
+
+.table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:15px;overflow:hidden}.table th,.table td{text-align:left;padding:15px;border-bottom:1px solid var(--line);font-size:13px}.table th{color:var(--gold);font-size:11px;text-transform:uppercase;letter-spacing:1px}.table tr:last-child td{border-bottom:0}
+
+.events{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.event{padding:23px;border-radius:16px;background:linear-gradient(145deg,#0e1724,#080b10);border:1px solid var(--line)}.date{color:var(--blue2);font-weight:900;font-size:12px}.event h3{margin:8px 0}.event p{color:var(--muted);font-size:13px}
+
+footer{border-top:1px solid var(--line);padding:35px 0;color:#748092;font-size:12px}
+
+.modal{display:none;position:fixed;inset:0;background:#000b;z-index:50;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.modal-box{width:min(600px,100%);background:#0b1119;border:1px solid #29415e;border-radius:18px;padding:28px;position:relative}.close{position:absolute;right:15px;top:12px;background:none;border:0;color:#fff;font-size:25px;cursor:pointer}.modal-box h2{font-size:30px}.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}.mini{background:#101925;border:1px solid var(--line);padding:14px;border-radius:10px}.mini small{color:var(--muted);display:block}.mini b{font-size:20px}
+
+.empty{grid-column:1/-1;text-align:center;padding:45px;color:var(--muted)}
+
+@media(max-width:850px){.hero{grid-template-columns:1fr;padding:45px 0}.hero-card{min-height:320px}.grid,.events{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}nav{display:none}}
+
+@media(max-width:560px){h1{font-size:49px}.grid,.events,.stats{grid-template-columns:1fr}.section-head{display:block}.section-head p{margin-top:8px}.hero{min-height:auto}}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+  <div class="container nav">
+
+    <a class="logo" href="#"><span>OCTAGON</span> <b>ELITE</b></a>
+
+    <nav><a href="#inicio">Início</a><a href="#lutadores">Lutadores</a><a href="#ranking">Ranking</a><a href="#eventos">Eventos</a><a href="#sobre">Sobre</a></nav>
+
+    <button class="nav-btn" onclick="document.querySelector('#lutadores').scrollIntoView()">Explorar</button>
+
+  </div>
+
+</header>
+
+ 
+
+<main>
+
+<section class="container hero" id="inicio">
+
+  <div>
+
+    <div class="eyebrow">MMA • PERFORMANCE • OCTAGON</div>
+
+    <h1>OS MELHORES<br><span>DO OCTÓGONO.</span></h1>
+
+    <p>Um portal moderno para acompanhar lutadores, categorias, rankings, estatísticas e grandes eventos do mundo do MMA.</p>
+
+    <div class="actions"><button class="btn primary" onclick="document.querySelector('#lutadores').scrollIntoView()">Ver lutadores</button><button class="btn" onclick="document.querySelector('#ranking').scrollIntoView()">Ver ranking</button></div>
+
+  </div>
+
+  <div class="hero-card"><div class="fighter-silhouette"></div><div class="featured"><small>DESTAQUE DA SEMANA</small><h2>THE CHAMPION</h2><p>Velocidade, técnica e potência dentro do octógono.</p></div></div>
+
+</section>
+
+ 
+
+<section class="container">
+
+  <div class="stats">
+
+    <div class="stat"><strong>24</strong><span>LUTADORES EM DESTAQUE</span></div>
+
+    <div class="stat"><strong>8</strong><span>CATEGORIAS</span></div>
+
+    <div class="stat"><strong>16</strong><span>EVENTOS LISTADOS</span></div>
+
+    <div class="stat"><strong>100%</strong><span>FOCO NO MMA</span></div>
+
+  </div>
+
+</section>
+
+ 
+
+<section class="container" id="lutadores">
+
+  <div class="section-head"><div><div class="eyebrow">ROSTER</div><h2>Lutadores em destaque</h2></div><p>Pesquise pelo nome ou filtre por categoria.</p></div>
+
+  <div class="toolbar"><input class="search" id="search" placeholder="🔎  Procurar lutador..." oninput="render()"><select class="filter" id="division" onchange="render()"><option value="">Todas as categorias</option><option>Pesado</option><option>Meio-pesado</option><option>Médio</option><option>Meio-médio</option><option>Leve</option><option>Pena</option><option>Galo</option><option>Palha</option></select></div>
+
+  <div class="grid" id="fighters"></div>
+
+</section>
+
+ 
+
+<section class="container" id="ranking">
+
+  <div class="section-head"><div><div class="eyebrow">TOP CONTENDERS</div><h2>Ranking geral</h2></div><p>Classificação demonstrativa para o projeto.</p></div>
+
+  <table class="table"><thead><tr><th>#</th><th>Lutador</th><th>Categoria</th><th>Vitórias</th><th>Status</th></tr></thead>
+
+  <tbody id="rankingBody"></tbody></table>
+
+</section>
+
+ 
+
+<section class="container" id="eventos">
+
+  <div class="section-head"><div><div class="eyebrow">AGENDA</div><h2>Próximos eventos</h2></div><p>Cards de exemplo para a interface.</p></div>
+
+  <div class="events">
+
+    <article class="event"><div class="date">18 OUT • SÁBADO</div><h3>OCTAGON NIGHT 01</h3><p>São Paulo • Card principal e lutas preliminares.</p></article>
+
+    <article class="event"><div class="date">01 NOV • SÁBADO</div><h3>FIGHT NIGHT</h3><p>Las Vegas • Noite especial de MMA.</p></article>
+
+    <article class="event"><div class="date">15 NOV • SÁBADO</div><h3>CHAMPIONSHIP NIGHT</h3><p>Nova York • Disputas de cinturão.</p></article>
+
+  </div>
+
+</section>
+
+ 
+
+<section class="container" id="sobre">
+
+  <div class="section-head"><div><div class="eyebrow">O PROJETO</div><h2>Octagon Elite</h2></div></div>
+
+  <p style="max-width:780px;color:var(--muted)">Este é um layout de demonstração inspirado na estética do MMA: fundo escuro, azul elétrico para ação e detalhes dourados para destacar campeões e posições. Os dados dos cards são ilustrativos e podem ser substituídos por informações reais.</p>
+
+</section>
+
+</main>
+
+ 
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><div class="modal-box"><button class="close" onclick="closeModal()">×</button><div id="modalContent"></div></div></div>
+
+<footer><div class="container">© 2026 Octagon Elite • Projeto demonstrativo de MMA • Feito para estudo e apresentação.</div></footer>
+
+ 
+
+<script>
+
+const fighters=[
+
+{name:"Alex Pereira",nick:"The Power",division:"Meio-pesado",record:"13-3",wins:13,rank:1,tags:["Striker","Kickboxing"]},
+
+{name:"Islam Makhachev",nick:"The Eagle",division:"Meio-médio",record:"28-1",wins:28,rank:1,tags:["Wrestling","Sambo"]},
+
+{name:"Tom Aspinall",nick:"The Asp",division:"Pesado",record:"15-3",wins:15,rank:1,tags:["Boxing","Wrestling"]},
+
+{name:"Ilia Topuria",nick:"El Matador",division:"Pena",record:"17-0",wins:17,rank:1,tags:["Boxing","BJJ"]},
+
+{name:"Khamzat Chimaev",nick:"Borz",division:"Médio",record:"15-0",wins:15,rank:2,tags:["Wrestling","Pressure"]},
+
+{name:"Max Holloway",nick:"Blessed",division:"Leve",record:"26-8",wins:26,rank:3,tags:["Boxing","Volume"]},
+
+{name:"Merab Dvalishvili",nick:"The Machine",division:"Galo",record:"20-4",wins:20,rank:1,tags:["Wrestling","Cardio"]},
+
+{name:"Alexandre Pantoja",nick:"The Cannibal",division:"Palha",record:"30-5",wins:30,rank:1,tags:["BJJ","Grappling"]},
+
+{name:"Jiri Prochazka",nick:"BJP",division:"Meio-pesado",record:"32-6",wins:32,rank:3,tags:["Striking","Power"]}
+
+];
+
+function render(){
+
+ const q=document.getElementById("search").value.toLowerCase(), d=document.getElementById("division").value;
+
+ const list=fighters.filter(f=>(f.name+" "+f.nick).toLowerCase().includes(q)&&(!d||f.division===d));
+
+ const el=document.getElementById("fighters");
+
+ el.innerHTML=list.length?list.map((f,i)=>`<article class="fighter"><div class="photo"><span class="rank">#${f.rank}</span><span class="division">${f.division}</span></div><div class="fighter-body"><span class="nickname">${f.nick}</span><h3>${f.name}</h3><div class="record"><span>Cartel <b>${f.record}</b></span><span>Vitórias <b>${f.wins}</b></span></div><div>${f.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div><button class="btn" style="width:100%;margin-top:15px" onclick='openModal(${JSON.stringify(f)})'>Ver perfil</button></div></article>`).join(""):`<div class="empty">Nenhum lutador encontrado.</div>`;
+
+ document.getElementById("rankingBody").innerHTML=fighters.slice().sort((a,b)=>b.wins-a.wins).slice(0,7).map((f,i)=>`<tr><td><b>${i+1}</b></td><td>${f.name}</td><td>${f.division}</td><td>${f.wins}</td><td style="color:var(--blue2)">Ativo</td></tr>`).join("");
+
+}
+
+function openModal(f){document.getElementById("modalContent").innerHTML=`<div class="eyebrow">${f.division}</div><h2>${f.name}</h2><p style="color:var(--blue2);font-weight:800">${f.nick}</p><div class="modal-grid"><div class="mini"><small>Cartel</small><b>${f.record}</b></div><div class="mini"><small>Ranking</small><b>#${f.rank}</b></div><div class="mini"><small>Vitórias</small><b>${f.wins}</b></div><div class="mini"><small>Estilo</small><b>${f.tags[0]}</b></div></div>`;document.getElementById("modal").classList.add("open")}
+
+function closeModal(){document.getElementById("modal").classList.remove("open")}
+
+render();
+
+</script>
+
+</body>
+
+</html>
